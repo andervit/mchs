@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles%}
+<head>
+	<meta charset="UTF-8">
+	<title>Main page</title>
+
+
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+<div class="caption">Розрахунок інтенсивності теплового випромінювання</div>
+<div class="delivery_block">
+<div class="delivery_list"><div id="btn"> </div><span id='text'>Пропан</span></div>
+
+<ul class="cities_list">
+	{% for s in data %}
+		<li>{{ s.name }}</li>
+	{% endfor %}
+</ul>
+<input type="text" id="vol" maxlength="200" placeholder="Об'єм" autofocus >
+<input type="text" id="pros" maxlength="200" placeholder="Концентрація газу" >
+<input type="text" id="dist" maxlength="200" placeholder="Відстань" >
+<input type="button" value = "Ok" id="okBut" >
+
+</div>
+<div class="result"></div>
+</body>
+
+
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="{% static 'js/jquery-1.12.3.min.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="{% static 'js/dropdown.js' %}"></script>
+<script>
+	$("#okBut").click(function(){
+		$.ajax({
+			type:"GET",
+			url: "home",
+			data: {
+				name: $("#text").html(),
+				pros:$("#pros").val(),
+				vol:$("#vol").val(),
+				dist:$("#dist").val()
+			}
+		}).done(function(data) {
+			var res = "Время существования шара: " +
+						data['time'] + "<br>" +
+						"Интенсивность излучения: " +
+						data['q'] + "<br>";
+			$(".result").html(res)
+
+			});
+	});
+
+</script>
+</html>
