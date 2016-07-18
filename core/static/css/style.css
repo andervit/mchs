@@ -1,3 +1,5 @@
+{% load staticfiles %}
+
 input[type="text"] {
   width: 100%;
   padding: 12px 20px;
@@ -51,7 +53,7 @@ input[type=button] {
  background: #fcfcfc;
  }
  .delivery_list #btn {
- background: url(dropdown.png);
+ background: url({% static 'dropdown.png' %});
  width: 17px;
  height: 18px;
  float: right;
